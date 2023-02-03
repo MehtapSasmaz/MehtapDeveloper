@@ -29,6 +29,25 @@ public class DmlDemo {
         update ac;
         
     }
+    public static void dmlUpdateDemo_stndObj2() {
+        account acc = [select id, name from account where name like 'Softinnovas%' limit 1];
+        //now set new field value
+        acc.Name = 'Softinnovas Inc.';
+        acc.Phone = '9876543214';
+        update acc;
+        system.debug('acc ' + acc);
+    }
+    public static void dmlInsertDemo_stndObj2() {
+        account acc = [select id, name from account where name like 'Softinnovas' limit 1];
+        //create contact instance
+        contact c = new contact();
+        c.LastName = 'Biden';
+        //setting relationship
+        c.AccountId = acc.Id;
+        insert c;
+        
+
+    }
 
     
 }
