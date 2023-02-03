@@ -7,6 +7,7 @@ public class AdditionOfNumbers {
          num1 = x;
          num2 = y;
     }
+    //addidition
 
     public static integer addIt(){
         integer result = num1+num2;
