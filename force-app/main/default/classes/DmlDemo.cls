@@ -82,6 +82,53 @@ public class DmlDemo {
       //insert list
       insert listAccount;
    }
+   public static void dmlDemoMultipleInsert_right2() {
+      List<account> insertAccountList = new list<account>();
+      for (Integer i = 0; i < 166; i++) {
+         account a = new account();
+         a.Name = 'Softinnovas v'+i;
+         a.Phone = '98465431'+i;
+         a.AccountNumber = 'rt'+i;
+         a.Active__c = 'Yes';
+         insertAccountList.add(a);
+      }
+      //check if list is not empty
+      //.isEmpty() -> true when empty, false when NOT empty
+      //!isEmpty() -> false when empty, true when NOT empty
+      if (!insertAccountList.isEmpty()) {
+         insert insertAccountList;
+      }
+   }
+   //get the latest created 50 accounts and update name
+   //append 'B.0' to account name
+   public static void dmlDemoMultipleUpdate_right1() {
+      list<account> listAccount = [select id, name from account 
+               order by createddate desc limit 50];
+      for (account eachAcc : listAccount) {
+         eachAcc.Name = eachAcc.Name + ' B.0'; 
+      }
+      update listAccount;
+   }
+   //we query all accounts -> 213
+      //update name and append 'Yy' if active is 'Yes' --> 100(assume)  
+      //update name and append 'Nn' if active is Null --> 50
 
+      public static void dmlDemoMultipleUpdate_right2() {
+         list<account> listAccount = [select id, name,Active__c from account];
+         list<account> updateAccountList = new list<account>();
 
+         for (account eachAcc : listAccount) {
+            if (eachAcc.Active__c == 'Yes') {
+               eachAcc.Name = eachAcc.Name + ' Yy';
+               updateAccountList.add(eachAcc);
+            } else if(eachAcc.Active__c == null){
+               eachAcc.Name = eachAcc.Name + ' Nn';
+               updateAccountList.add(eachAcc);
+            }
+         }
+         if (!updateAccountList.isEmpty()) {
+            update updateAccountList;
+         }
+      }
 }
+
